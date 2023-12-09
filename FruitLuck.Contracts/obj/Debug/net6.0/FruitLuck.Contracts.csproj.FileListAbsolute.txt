@@ -1,0 +1,12 @@
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\bin\Debug\net6.0\FruitLuck.Contracts.deps.json
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\bin\Debug\net6.0\FruitLuck.Contracts.dll
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\bin\Debug\net6.0\FruitLuck.Contracts.pdb
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.csproj.AssemblyReference.cache
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.AssemblyInfoInputs.cache
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.AssemblyInfo.cs
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.dll
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\refint\FruitLuck.Contracts.dll
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\FruitLuck.Contracts.pdb
+C:\Users\Jared\Documents\FruitLuck\FruitLuck.Contracts\obj\Debug\net6.0\ref\FruitLuck.Contracts.dll

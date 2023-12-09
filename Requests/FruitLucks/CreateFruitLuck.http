@@ -1,0 +1,19 @@
+
+POST http://localhost:5130/FruitLuck
+Content-Type: application/json
+
+{
+    "name": "Vegan Fruitluck",
+    "description": "You must be vegan to join us at this fruit luck.  Any non-vegan will be executed on the spot",
+    "startDateTime": "2022-04-08T08:00:00",
+    "endDateTime": "2022-04-08T11:00:00",  
+    "Fruits": [
+        "Atemoya"
+    ] 
+}
+
+###
+
+
+
+GET https://localhost:5130/fruitLucks/e35daaba-5a9e-43a2-9305-3dead8296fe0

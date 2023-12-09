@@ -1,0 +1,3 @@
+@id = afa2e660-af46-410c-8233-87f723c009d9
+
+GET http://localhost:5130/FruitLuck/{{id}}
