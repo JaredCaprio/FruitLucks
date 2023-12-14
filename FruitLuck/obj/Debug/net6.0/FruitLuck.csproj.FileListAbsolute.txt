@@ -22,3 +22,4 @@ C:\Users\Jared\Documents\FruitLuck\FruitLuck\obj\Debug\net6.0\refint\FruitLuck.d
 C:\Users\Jared\Documents\FruitLuck\FruitLuck\obj\Debug\net6.0\FruitLuck.pdb
 C:\Users\Jared\Documents\FruitLuck\FruitLuck\obj\Debug\net6.0\FruitLuck.genruntimeconfig.cache
 C:\Users\Jared\Documents\FruitLuck\FruitLuck\obj\Debug\net6.0\ref\FruitLuck.dll
+C:\Users\Jared\Documents\FruitLuck\FruitLuck\bin\Debug\net6.0\ErrorOr.dll

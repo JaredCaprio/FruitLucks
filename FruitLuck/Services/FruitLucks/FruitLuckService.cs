@@ -10,14 +10,18 @@ namespace FruitLuck.Services.FruitLucks
 
         private static readonly Dictionary<Guid, FruitLuckModel> _fruitLucks = new();
 
-        public void CreateFruitLuck(FruitLuckModel fruitLuck)
+        public ErrorOr<Created> CreateFruitLuck(FruitLuckModel fruitLuck)
         {
             _fruitLucks.Add(fruitLuck.Id, fruitLuck);
+
+            return Result.Created;
         }
 
-        public void DeleteFruitLuck(Guid id)
+        public ErrorOr<Deleted> DeleteFruitLuck(Guid id)
         {
             _fruitLucks.Remove(id);
+
+            return Result.Deleted;
         }
 
         public ErrorOr<FruitLuckModel> GetFruitLuck(Guid id)
@@ -30,14 +34,15 @@ namespace FruitLuck.Services.FruitLucks
             return Errors.FruitLuck.NotFound;
         }
 
-        public void UpsertFruitLuck(FruitLuckModel fruitLuck)
+        public ErrorOr<UpsertedFruitLuck> UpsertFruitLuck(FruitLuckModel fruitLuck)
         {
+            var IsNewlyCreated = !_fruitLucks.ContainsKey(fruitLuck.Id);
+
             _fruitLucks[fruitLuck.Id] = fruitLuck;
+
+            return new UpsertedFruitLuck(IsNewlyCreated);
         }
 
-        ErrorOr<FruitLuckModel> IFruitLuckService.GetFruitLuck(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

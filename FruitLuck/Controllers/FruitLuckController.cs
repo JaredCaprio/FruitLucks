@@ -1,14 +1,16 @@
+using ErrorOr;
 using FruitLuck.Contracts.FruitLucks;
 using FruitLuck.Models;
+using FruitLuck.ServiceErrors;
+using FruitLuck.Services;
 using FruitLuck.Services.FruitLucks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FruitLuck.Controllers;
 
 
-[ApiController]
-[Route("[controller]")]
-public class FruitLuckController : ControllerBase
+
+public class FruitLuckController : ApiController
 {
     private readonly IFruitLuckService _fruitLuckService;
 
@@ -20,39 +22,77 @@ public class FruitLuckController : ControllerBase
     [HttpPost]
     public IActionResult CreateFruitLuck(CreateFruitLuckRequest request)
     {
-        var fruitLuck = new FruitLuckModel(
-            Guid.NewGuid(),
-            request.Name,
-            request.Description,
-            request.StartDateTime,
-            request.EndDateTime,
-            DateTime.UtcNow,
-            request.Fruits);
+        ErrorOr<FruitLuckModel> requestToFruitLuckResult = FruitLuckModel.From(request);
 
-        _fruitLuckService.CreateFruitLuck(fruitLuck);
+        if (requestToFruitLuckResult.IsError)
+        {
+            return Problem(requestToFruitLuckResult.Errors);
+        }
+        var fruitLuck = requestToFruitLuckResult.Value;
+        ErrorOr<Created> createFruitLuckResult = _fruitLuckService.CreateFruitLuck(fruitLuck);
 
 
-        var response = new FruitLuckResponse(
-            fruitLuck.Id,
-            fruitLuck.Name,
-            fruitLuck.Description,
-            fruitLuck.StartDateTime,
-            fruitLuck.EndDateTime,
-            fruitLuck.LastModifiedDateTime,
-            fruitLuck.Fruits);
 
-        return CreatedAtAction(
-            actionName: nameof(GetFruitLuck),
-            routeValues: new { id = fruitLuck.Id },
-            value: response);
+        return createFruitLuckResult.Match(
+            created => CreatedAtGetFruitLuck(fruitLuck),
+            errors => Problem(errors)
+        );
     }
+
 
     [HttpGet("{id:guid}")]
     public IActionResult GetFruitLuck(Guid id)
     {
-        FruitLuckModel fruitLuck = _fruitLuckService.GetFruitLuck(id);
+        ErrorOr<FruitLuckModel> getFruitLuckResult = _fruitLuckService.GetFruitLuck(id);
 
-        var response = new FruitLuckResponse(
+        return getFruitLuckResult.Match(
+            fruitLuck => Ok(MapFruitLuckResponse(fruitLuck)),
+            errors => Problem(errors)
+        );
+
+    }
+
+
+    [HttpPut("{id:guid}")]
+    public IActionResult UpsertFruitLuck(Guid id, UpsertFruitLuckRequest request)
+    {
+        ErrorOr<FruitLuckModel> requestToFruitLuckResult = FruitLuckModel.From(id, request);
+
+        if (requestToFruitLuckResult.IsError)
+        {
+            return Problem(requestToFruitLuckResult.Errors);
+        }
+
+        var fruitLuck = requestToFruitLuckResult.Value;
+        ErrorOr<UpsertedFruitLuck> upsertedFruitLuckResult = _fruitLuckService.UpsertFruitLuck(fruitLuck);
+
+
+        return upsertedFruitLuckResult.Match(
+         upserted => upserted.IsNewlyCreated ? CreatedAtGetFruitLuck(fruitLuck) : NoContent(),
+         errors => Problem(errors)
+        );
+
+
+
+    }
+
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeleteFruitLuck(Guid id)
+    {
+        ErrorOr<Deleted> deletedFruitLuckResult = _fruitLuckService.DeleteFruitLuck(id);
+
+
+        return deletedFruitLuckResult.Match(
+            deleted => NoContent(),
+            errors => Problem(errors)
+        );
+
+    }
+
+
+    private static FruitLuckResponse MapFruitLuckResponse(FruitLuckModel fruitLuck)
+    {
+        return new FruitLuckResponse(
             fruitLuck.Id,
             fruitLuck.Name,
             fruitLuck.Description,
@@ -61,33 +101,15 @@ public class FruitLuckController : ControllerBase
             fruitLuck.LastModifiedDateTime,
             fruitLuck.Fruits
         );
-        return Ok(response);
     }
 
-    [HttpPut("{id:guid}")]
-    public IActionResult UpsertFruitLuck(Guid id, UpsertFruitLuckRequest request)
+
+    private IActionResult CreatedAtGetFruitLuck(FruitLuckModel fruitLuck)
     {
-        var fruitLuck = new FruitLuckModel(
-            id,
-            request.Name,
-            request.Description,
-            request.StartDateTime,
-            request.EndDateTime,
-            DateTime.UtcNow,
-            request.Fruits
-        );
-
-        _fruitLuckService.UpsertFruitLuck(fruitLuck);
-        //TODO: return 201 if a new fruit luck was created
-
-        return NoContent();
-    }
-
-    [HttpDelete("{id:guid}")]
-    public IActionResult DeleteFruitLuck(Guid id)
-    {
-        _fruitLuckService.DeleteFruitLuck(id);
-        return NoContent();
+        return CreatedAtAction(
+            actionName: nameof(GetFruitLuck),
+            routeValues: new { id = fruitLuck.Id },
+            value: MapFruitLuckResponse(fruitLuck));
     }
 
 

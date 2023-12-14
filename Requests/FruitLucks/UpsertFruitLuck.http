@@ -1,12 +1,12 @@
 
-@id = afa2e660-af46-410c-8233-87f723c009d9
+@id = fe6a373c-b16d-42e2-bd18-044d72516e5e
 
 PUT http://localhost:5130/FruitLuck/{{id}}
 Content-Type: application/json
 
 {
-     "name": "NON VEGAN! Fruitluck",
-    "description": "Everything vegan.  Bring fruit to share.  Event will occur in Maximo Park",
+     "name": "Evil Militant Vegan Fruitluck",
+    "description": "Everything vegan.  Bring fruit to share or face the firing squad.  Event will occur in Maximo Park",
     "startDateTime": "2022-04-08T08:00:00",
     "endDateTime": "2022-04-08T11:00:00",    
     "Fruits": [

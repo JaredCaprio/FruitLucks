@@ -1,3 +1,4 @@
+using ErrorOr;
 using FruitLuck.Contracts.FruitLucks;
 using FruitLuck.Models;
 
@@ -8,10 +9,10 @@ namespace FruitLuck.Services.FruitLucks
 
     public interface IFruitLuckService
     {
-        void CreateFruitLuck(FruitLuckModel FruitLucks);
-        void DeleteFruitLuck(Guid id);
-        FruitLuckModel GetFruitLuck(Guid id);
-        void UpsertFruitLuck(FruitLuckModel fruitLuck);
+        ErrorOr<Created> CreateFruitLuck(FruitLuckModel FruitLucks);
+        ErrorOr<Deleted> DeleteFruitLuck(Guid id);
+        ErrorOr<FruitLuckModel> GetFruitLuck(Guid id);
+        ErrorOr<UpsertedFruitLuck> UpsertFruitLuck(FruitLuckModel fruitLuck);
     }
 
 }
