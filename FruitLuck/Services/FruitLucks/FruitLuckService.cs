@@ -24,6 +24,14 @@ namespace FruitLuck.Services.FruitLucks
             return Result.Deleted;
         }
 
+        public ErrorOr<List<FruitLuckModel>> GetAllFruitLucks()
+        {
+            var allFruitLucks = _fruitLucks.Values.ToList();
+
+            return allFruitLucks.Count > 0
+            ? allFruitLucks : new ErrorOr<List<FruitLuckModel>>();
+        }
+
         public ErrorOr<FruitLuckModel> GetFruitLuck(Guid id)
         {
             if (_fruitLucks.TryGetValue(id, out var fruitLuck))

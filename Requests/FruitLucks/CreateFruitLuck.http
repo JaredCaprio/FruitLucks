@@ -1,14 +1,18 @@
 
 POST http://localhost:5130/FruitLuck
-Content-Type: application/json
+Content-Type: application/json 
 
 {
     "name": "Vegan Fruitluck",
-    "description": "Youspot",
-    "startDateTime": "2022-04-08T08:00:00",
-    "endDateTime": "2022-04-08T11:00:00",  
+    "description": "I When I move out, I will get a new desk once I save up enough money, I want it to be a convertible standing desk and I.",
+    "startDateTime": "2023-12-29T07:00:00",
+    "endDateTime": "2023-12-30T11:00:00",  
     "Fruits": [
-        "Atemoya"
+        "Atemoya",
+        "Cherimoya",
+        "Mango",
+        "Sugar Apple",
+        "Gynura Procumbens"
     ] 
 }
 

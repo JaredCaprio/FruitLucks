@@ -52,6 +52,17 @@ public class FruitLuckController : ApiController
 
     }
 
+    [HttpGet]
+    public IActionResult GetAllFruitLuck()
+    {
+        ErrorOr<List<FruitLuckModel>> getFruitLuckResult = _fruitLuckService.GetAllFruitLucks();
+
+        return getFruitLuckResult.Match(
+            fruitLucks => Ok(MapAllFruitLuckResponse(fruitLucks)),
+            errors => Problem(errors)
+        );
+    }
+
 
     [HttpPut("{id:guid}")]
     public IActionResult UpsertFruitLuck(Guid id, UpsertFruitLuckRequest request)
@@ -101,6 +112,26 @@ public class FruitLuckController : ApiController
             fruitLuck.LastModifiedDateTime,
             fruitLuck.Fruits
         );
+    }
+
+    private static List<FruitLuckResponse> MapAllFruitLuckResponse(List<FruitLuckModel> fruitLucks)
+    {
+        List<FruitLuckResponse> responses = new();
+
+        foreach (var fruitLuck in fruitLucks)
+        {
+            responses.Add(new FruitLuckResponse(
+                fruitLuck.Id,
+                fruitLuck.Name,
+                fruitLuck.Description,
+                fruitLuck.StartDateTime,
+                fruitLuck.EndDateTime,
+                fruitLuck.LastModifiedDateTime,
+                fruitLuck.Fruits
+            ));
+        }
+
+        return responses;
     }
 
 
